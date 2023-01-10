@@ -13,7 +13,7 @@ public class TokenTest {
     public void testCreateNewTask() throws InterruptedException {
 
         createNewTaskAndGetTimeAndToken();
-        isNewTaskCreated();
+        checkNewTaskCreated();
         Thread.sleep(taskCompletionTime * 1000);
         checkTaskIsFinished();
     }
@@ -28,7 +28,7 @@ public class TokenTest {
         taskCompletionTime = response.get("seconds");
     }
 
-    public void isNewTaskCreated() {
+    public void checkNewTaskCreated() {
 
         JsonPath response = RestAssured
                 .given()
