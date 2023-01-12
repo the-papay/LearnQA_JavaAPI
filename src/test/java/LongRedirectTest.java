@@ -30,7 +30,7 @@ public class LongRedirectTest {
             String locationHeader = RestAssured
                     .given()
                     .redirects()
-                    .follow(true)
+                    .follow(false)
                     .when()
                     .get("https://playground.learnqa.ru/api/long_redirect")
                     .getHeader("Location");
@@ -39,6 +39,7 @@ public class LongRedirectTest {
                     .get(locationHeader)
                     .getStatusCode();
 
+            System.out.println(statusCode);
             requestCounter++;
         }
         System.out.println(requestCounter);
