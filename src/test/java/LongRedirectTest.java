@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 
 public class LongRedirectTest {
 
+    private final String URL = "https://playground.learnqa.ru/api/long_redirect";
+
     @Test
     public void testFindLongRedirectLocationTest() {
 
@@ -12,36 +14,54 @@ public class LongRedirectTest {
                 .redirects()
                 .follow(false)
                 .when()
-                .get("https://playground.learnqa.ru/api/long_redirect")
+                .get(URL)
                 .getHeader("Location");
 
         System.out.println(locationHeader);
     }
 
     @Test
-    public void testLongRedirectUntil200OkReturnedTest() {
+    public void testLongRedirectCalculateRedirectsTest() {
 
-        //todo: Наша задача — написать цикл, которая будет создавать запросы в цикле,
-        // каждый раз читая URL для редиректа из нужного заголовка. И так, пока мы не дойдем до ответа с кодом 200.
-        int statusCode = 0;
-        int requestCounter = 0;
+        String locationHeader = getResponseWithInitialLocationHeader().getHeader("Location");
+        int statusCode = getResponseWithInitialLocationHeader().getStatusCode();
+
+        System.out.println("Location -> " + locationHeader);
+        System.out.println("Status code -> " + statusCode);
+
 
         while (statusCode != 200) {
-            String locationHeader = RestAssured
+
+            Response response = RestAssured
                     .given()
+                    .when()
                     .redirects()
                     .follow(false)
-                    .when()
-                    .get("https://playground.learnqa.ru/api/long_redirect")
-                    .getHeader("Location");
-
-            statusCode = RestAssured
                     .get(locationHeader)
-                    .getStatusCode();
+                    .andReturn();
 
-            System.out.println(statusCode);
-            requestCounter++;
+            if (locationHeader == null) {
+                System.out.println("Status code -> " + statusCode);
+            } else {
+                locationHeader = response.getHeader("Location");
+                statusCode = response.getStatusCode();
+                System.out.println("Location -> " + locationHeader);
+            }
+            System.out.println("Status code " + statusCode);
         }
-        System.out.println(requestCounter);
+    }
+
+    public Response getResponseWithInitialLocationHeader() {
+
+        Response responseWithInitialLocationHeader = RestAssured
+                .given()
+                    .redirects()
+                    .follow(false)
+                .when()
+                .get(URL)
+                .andReturn();
+
+        return responseWithInitialLocationHeader;
     }
 }
+
