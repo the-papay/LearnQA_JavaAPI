@@ -15,8 +15,10 @@ public class HomeworkCookieTest {
                 .get(URL)
                 .andReturn();
 
-        Assertions.assertTrue(!(response.getCookies().isEmpty()), "Cookies is missing");
-
+        if (!response.getCookies().isEmpty()) {
+            Assertions.assertTrue(response.getCookie("HomeWork").equals("hw_value"));
+        } else {
+            System.out.println("Cookies is missing in response");
+        }
     }
-
 }

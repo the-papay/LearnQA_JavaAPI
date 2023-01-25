@@ -15,7 +15,7 @@ public class HomeworkHeaderTest {
                 .get(URL)
                 .andReturn();
 
-        Assertions.assertTrue((response.getHeaders().exist()), "Cookies is missing");
+        Assertions.assertTrue((response.getHeader("x-secret-homework-header")
+                .equals("Some secret value")),"Header is missing");
     }
-
 }
