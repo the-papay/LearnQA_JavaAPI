@@ -1,4 +1,4 @@
-package tests;
+package tests.second_module;
 
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;

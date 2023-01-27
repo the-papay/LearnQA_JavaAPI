@@ -1,4 +1,4 @@
-package tests;
+package tests.third_module;
 
 import io.restassured.RestAssured;
 import io.restassured.response.Response;

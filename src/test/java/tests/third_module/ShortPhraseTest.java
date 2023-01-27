@@ -1,4 +1,4 @@
-package tests;
+package tests.third_module;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
