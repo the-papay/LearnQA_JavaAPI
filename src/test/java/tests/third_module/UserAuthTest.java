@@ -4,6 +4,7 @@ import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import lib.BaseTestCase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -13,7 +14,7 @@ import lib.Assertions;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UserAuthTest {
+public class UserAuthTest extends BaseTestCase {
 
     String cookie;
     String header;
